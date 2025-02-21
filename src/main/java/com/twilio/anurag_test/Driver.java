@@ -25,7 +25,7 @@ public class Driver {
                 // The client will be notified of role1 with hosts that are running and located in dev-us1 and the default stack
                 System.out.println("Role: " + role + " Hosts: " + hosts);
             }
-        }, new ServiceFilter().roleName(AN_TEST_STACK).hostStatus(HOST_RUNNING));
+        }, new ServiceFilter().roleName(AN_TEST_STACK).stack("default").hostStatus(HOST_RUNNING));
 
         cartClient.addListener(AN_TEST_STACK, cartListener, new ServiceFilter().realm("dev-us1").stack("default"));
     }
@@ -36,16 +36,16 @@ public class Driver {
     public void run() {
         cartClient.start();
         final var filter = new ServiceFilter().realm("dev-us1").stack("default");
-        CartographerLoadBalancerMonitor cartMonitor = new CartographerLoadBalancerMonitor(cartClient, System.getenv(HOST_SID));
-        TestMonitor testMonitor = new TestMonitor();
-        cartMonitor.addListener(testMonitor);
-
-        cartClient.addListener(MY_TEST_ROLE, (final CartEvent event) -> {
-            log.fine(() -> show(event));
-            cartClient.getServices(filter).forEach((final Service service) -> {
-                log.fine(() -> show(service));
-            });
-        }, filter);
+//        CartographerLoadBalancerMonitor cartMonitor = new CartographerLoadBalancerMonitor(cartClient, System.getenv(HOST_SID));
+//        TestMonitor testMonitor = new TestMonitor();
+//        cartMonitor.addListener(testMonitor);
+//
+//        cartClient.addListener(MY_TEST_ROLE, (final CartEvent event) -> {
+//            log.fine(() -> show(event));
+//            cartClient.getServices(filter).forEach((final Service service) -> {
+//                log.fine(() -> show(service));
+//            });
+//        }, filter);
 
         try{
             testServiceDiscovery();
