@@ -27,7 +27,7 @@ public class Driver {
             }
         }, new ServiceFilter().roleName(AN_TEST_STACK).stack("default").hostStatus(HOST_RUNNING));
 
-        cartClient.addListener(AN_TEST_STACK, cartListener, new ServiceFilter().realm("dev-us1").stack("default"));
+        cartClient.addListener(AN_TEST_STACK, cartListener, new ServiceFilter());
     }
     public Driver(final CartographerClient cartClient) {
         this.cartClient = cartClient;
